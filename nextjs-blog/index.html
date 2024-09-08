@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="A Digital Introduction to Risab Sankar">
+    <title>A Digital Introduction</title>
+    <link rel="icon" href="/favicon.ico">
+    <style>
+        /* Embedded CSS */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        #slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .content {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            padding-bottom: 20px;
+            /* Add spacing below the title */
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .list-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .list-item {
+            font-size: 2rem;
+            /* Adjusted font size for h1 appearance */
+            margin: 15px 0;
+            cursor: pointer;
+            user-select: none;
+            /* Prevent text selection */
+        }
+
+        .list-item:hover {
+            color: #0070f3;
+            /* Optional: Highlight on hover */
+        }
+
+        #slide i {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="slide">
+        <div class="content">
+            <h1>Hello</h1>
+            <p>Welcome to the introduction.</p>
+        </div>
+    </div>
+
+    <script>
+        // Embedded JavaScript
+        const slideElement = document.getElementById('slide');
+        const listContainer = document.createElement('div');
+        listContainer.className = 'list-container';
+
+        const slides = [
+            { title: 'Hello!', content: "Tap to Continue." },
+            { title: 'Hello! My name is Risab Sankar', content: 'Tap to Continue.' },
+            { title: 'Consider this a Digital Introduction', content: 'Tap to Continue.' },
+        ];
+
+        const navigationLinks = [
+            { text: 'About', url: '/about.html' },
+            { text: 'Experience', url: '/experience.html' },
+            { text: 'Projects', url: '/projects.html' },
+            { text: 'Hobbies', url: '/hobbies.html' }
+        ];
+
+        let currentSlideIndex = 0;
+
+        function updateSlide() {
+            currentSlideIndex++;
+            if (currentSlideIndex < slides.length) {
+                const slide = slides[currentSlideIndex];
+                slideElement.querySelector('h1').textContent = slide.title;
+                slideElement.querySelector('p').textContent = slide.content;
+                listContainer.style.display = 'none';
+            } else {
+                slideElement.removeEventListener('click', updateSlide);
+                slideElement.style.cursor = 'default';
+                slideElement.innerHTML = `
+                    <div class="content">
+                    </div>
+                `;
+                navigationLinks.forEach(link => {
+                    const listItem = document.createElement('h1'); // Change to <h1>
+                    listItem.className = 'list-item';
+                    listItem.textContent = link.text;
+                    listItem.onclick = () => {
+                        window.location.href = link.url;
+                    };
+                    listContainer.appendChild(listItem);
+                });
+                slideElement.appendChild(listContainer);
+                listContainer.style.display = 'block';
+            }
+        }
+
+        slideElement.addEventListener('click', updateSlide);
+    </script>
+</body>
+
+</html>
